@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import {createReservations} from "../../utils/api";
+import { createReservation } from "../../utils/api";
 import ErrorAlert from "../ErrorAlert";
 
 function createNewReservation({date}) {
@@ -18,7 +18,22 @@ const [reservation, setReservation] = useState({
     people: "1",
 });
 
+//declare change handler
+const handleChange = ({target}) => {
+    setReservation({
+        ...reservation,
+        [target.name]: target.value,
+    });
+}
 
+
+
+return (
+    <div>
+        <h1>Create A Reservation</h1>
+
+    </div>
+)
 }
 
 export default createNewReservation;
