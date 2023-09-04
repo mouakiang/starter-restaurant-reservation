@@ -3,12 +3,10 @@ import { useHistory } from "react-router";
 import { createReservation } from "../../utils/api";
 import ErrorAlert from "../ErrorAlert";
 
-function createNewReservation({date}) {
+function CreateNewReservation({date}) {
 //declare state
 const history = useHistory();
-
 const [error, setError] = useState(null);
-
 const [reservation, setReservation] = useState({
     first_name: "",
     last_name: "",
@@ -29,22 +27,26 @@ const handleChange = ({target}) => {
 //declare handle submit 
 function handleSubmit (e) {
     e.preventDefault();
-    createNewReservation({
+    createReservation({
         ...reservation,
         people: Number(reservation.people),
     })
-
+    .then(() => {
+      history.push(`/dashboard?date=${reservation.reservation_date}`);
+    })
+    .catch(setError);
 }
 
 return (
-    <div>
-        <h1>Create A Reservation</h1>
+    <>
+    <h1> Create A Reservation </h1>
+    <ErrorAlert error={error} />
 
-    </div>
+    </>
 )
 }
 
-export default createNewReservation;
+export default CreateNewReservation;
 
 
 
