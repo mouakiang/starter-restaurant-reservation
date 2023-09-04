@@ -26,7 +26,15 @@ const handleChange = ({target}) => {
     });
 }
 
+//declare handle submit 
+function handleSubmit (e) {
+    e.preventDefault();
+    createNewReservation({
+        ...reservation,
+        people: Number(reservation.people),
+    })
 
+}
 
 return (
     <div>
