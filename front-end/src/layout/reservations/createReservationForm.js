@@ -131,6 +131,8 @@ return (
         </label>
       </div>
     </div>
+    <button type="button" onClick={() => history.goBack()} className="btn btn-secondary mr-2"> Cancel </button>
+    <button type="submit" className="btn btn-primary"> Submit Reservation </button>
     </form>
     </>
 )
