@@ -102,10 +102,35 @@ return (
       <small className="form-text text-muted"> Enter Reservation Date</small>
         </label>
       </div>
-      
+      <div className="col-4 form-group">
+        <label className="form-label" htmlFor="reservation_time">
+        <input
+        className="form-control"
+        id="reservation_time"
+        name="reservation_time"
+        type="time"
+        onChange={handleChange}
+        required={true}
+        value={reservation.reservation_time}
+        />
+      <small className="form-text text-muted"> Enter Reservation Time</small>
+        </label>
+      </div>
+      <div className="col-4 form-group">
+        <label className="form-label" htmlFor="people">
+        <input
+        className="form-control"
+        id="people"
+        name="people"
+        type="number"
+        onChange={handleChange}
+        required={true}
+        value={reservation.people}
+        />
+      <small className="form-text text-muted"> Enter Party Size</small>
+        </label>
+      </div>
     </div>
-
-
     </form>
     </>
 )
