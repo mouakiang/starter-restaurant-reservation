@@ -71,7 +71,38 @@ return (
         required={true}
         value={reservation.last_name}
         />
+         <small className="form-text text-muted"> Enter Last Name</small>
       </div>
+      <div className="col-4 form-group">
+        <label className="form-label" htmlFor="mobile_number">
+          Mobile Number
+        </label>
+        <input
+        className="form-control"
+        id="mobile_number"
+        name="mobile_number"
+        type="text"
+        onChange={handleChange}
+        required={true}
+        value={reservation.mobile_number}
+        />
+       <small className="form-text text-muted"> Enter Mobile Number</small>
+      </div>
+      <div className="col-4 form-group">
+        <label className="form-label" htmlFor="reservation_date">
+        <input
+        className="form-control"
+        id="reservation_date"
+        name="reservation_date"
+        type="date"
+        onChange={handleChange}
+        required={true}
+        value={reservation.reservation_date}
+        />
+      <small className="form-text text-muted"> Enter Reservation Date</small>
+        </label>
+      </div>
+      
     </div>
 
 
