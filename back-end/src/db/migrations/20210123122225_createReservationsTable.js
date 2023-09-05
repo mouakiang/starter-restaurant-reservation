@@ -9,7 +9,6 @@ exports.up = function (knex) {
     table.integer("people")
     table.string("status")
     table.timestamps(true, true);
-
   });
 };
 
