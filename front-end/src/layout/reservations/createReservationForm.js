@@ -58,7 +58,22 @@ return (
         />
         <small className="form-text text-muted"> Enter First Name</small>
       </div>
+      <div className="col-4 form-group">
+        <label className="form-label" htmlFor="last_name">
+          Last Name
+        </label>
+        <input
+        className="form-control"
+        id="last_name"
+        name="last_name"
+        type="text"
+        onChange={handleChange}
+        required={true}
+        value={reservation.last_name}
+        />
+      </div>
     </div>
+
 
     </form>
     </>
