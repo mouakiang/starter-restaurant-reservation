@@ -13,6 +13,10 @@ router.route("/")
 .post(controller.create)
 .all(methodNotAllowed);
 
+router.route("/new")
+.post(controller.create)
+.all(methodNotAllowed);
+
 router.route("/:reservationId([0-9]+)")
 .get(controller.read)
 .all(methodNotAllowed);

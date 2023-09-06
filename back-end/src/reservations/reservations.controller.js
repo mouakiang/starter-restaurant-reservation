@@ -1,6 +1,7 @@
 /**
  * List handler for reservation resources
  */
+const { first } = require("../db/connection");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./reservations.service")
 
@@ -30,9 +31,47 @@ async function create(req, res, next) {
   res.status(201).json({data});
 }
 
+//middleware functions
+
+function hasData(req, res, next) {
+  const data = req.body.data;
+  if (data) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "Data is missing"
+  })
+}
+
+function firstNameExists(req, res, next) {
+  const firstName = req.body.data.first_name;
+  if (firstName) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "First name is required"
+  })
+}
+
+function lastNameExists(req, res, next) {
+  const lastName = req.body.data.last_name;
+  if (lastName) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "Last name is required"
+  })
+}
 
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary, read],
-  create: [asyncErrorBoundary, create]
+  create: [asyncErrorBoundary, 
+  hasData,
+  firstNameExists,
+  lastNameExists,
+  create],
 };
