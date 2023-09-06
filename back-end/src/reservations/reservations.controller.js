@@ -1,28 +1,32 @@
 /**
  * List handler for reservation resources
  */
-const reservationService = require("./reservations.service")
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+const service = require("./reservations.service")
 
 
-function list(req, res, next) {
-  res.json({data: res.locals.reservations});
+async function list(req, res) {
+  const { date, currentDate } = req.query;
+  if (date) {
+    const data = await service.listReservationsByDate(date);
+    res.json({data});
+  } else if (currentDate) {
+    const data = await service.listReservationsByDate(date);
+    res.json({data});
+  } else {
+    const data = await service.list();
+    res.json({data});
+  }
 };
 
-async function listReservationsByDate(req, res) {
-  try {
-    //Default to today's date if no parameter is provided
-    const date = req.query.date || new Date().toISOString().split("T")[0];
 
-    //Fetch reservations for the specified date from the service
-    const reservations = await reservationService.fetchReservationsByDate(date);
 
-    //Render the dashboard page with reservations data
-    res.render("dashboard", {reservations, date});
-  } catch (error) {
-    res.status(500).json({error: "Unable to fetch reservations."});
-  }
+function read(req, res) {
+  const data = res.locals.reservation;
+  res.json({data});
 }
 
 module.exports = {
-  list: [listReservationsByDate, list],
+  list: asyncErrorBoundary(list),
+  read: [asyncErrorBoundary, read]
 };
