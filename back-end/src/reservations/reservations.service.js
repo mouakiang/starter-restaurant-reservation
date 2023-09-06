@@ -24,10 +24,20 @@ function read(reservation_id) {
     .then((result) => result[0]);
 }
 
+function create(newReservation) {
+    return knex("reservations")
+    .insert({
+        ...newReservation,
+        "status": "booked",
+    })
+    .returning("*")
+    .then((result) => result[0]);
+}
 
 
 module.exports = {
     list,
     listReservationsByDate,
     read,
+    create,
 };

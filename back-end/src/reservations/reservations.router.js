@@ -10,6 +10,7 @@ const controller = require("./reservations.controller");
 
 router.route("/")
 .get(controller.list)
+.post(controller.create)
 .all(methodNotAllowed);
 
 router.route("/:reservationId([0-9]+)")
