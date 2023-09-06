@@ -1,11 +1,11 @@
 /**
  * List handler for reservation resources
  */
-async function list(req, res) {
-  res.json({
-    data: [],
-  });
-}
+const reservationService = require("./reservations.service")
+
+function list(req, res, next) {
+  res.json({data: res.locals.reservations});
+};
 
 module.exports = {
   list,
