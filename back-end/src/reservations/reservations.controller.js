@@ -1,18 +1,11 @@
-/**
- * List handler for reservation resources
- */
-const { first } = require("../db/connection");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./reservations.service")
 
 
 async function list(req, res) {
-  const { date, currentDate } = req.query;
+  const { date } = req.query;
   if (date) {
-    const data = await service.listReservationsByDate(date);
-    res.json({data});
-  } else if (currentDate) {
-    const data = await service.listReservationsByDate(date);
+    const data = await service.listReservationsByDate({date});
     res.json({data});
   } else {
     const data = await service.list();
@@ -20,15 +13,15 @@ async function list(req, res) {
   }
 };
 
-function read(req, res) {
+async function read(req, res, next) {
   const data = res.locals.reservation;
   res.json({data});
 }
 
 async function create(req, res, next) {
-  const reservation = req.body.data;
-  const data = await service.create(reservation);
-  res.status(201).json({data});
+  const newReservation = req.body.data;
+  const data = await service.create(newReservation);
+  res.status(201).json({data: newReservation});
 }
 
 //middleware functions
@@ -69,9 +62,8 @@ function lastNameExists(req, res, next) {
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary, read],
-  create: [asyncErrorBoundary, 
+  create: [asyncErrorBoundary(create), 
   hasData,
   firstNameExists,
-  lastNameExists,
-  create],
+  lastNameExists],
 };

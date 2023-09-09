@@ -17,8 +17,9 @@ router.route("/new")
 .post(controller.create)
 .all(methodNotAllowed);
 
-router.route("/:reservationId([0-9]+)")
-.get(controller.read)
-.all(methodNotAllowed);
+router
+  .route("/:reservationId")
+  .get(controller.read)
+  .all(methodNotAllowed);
 
 module.exports = router;
