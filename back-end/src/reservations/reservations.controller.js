@@ -13,8 +13,7 @@ async function list(request, response) {
 }
 
 async function read(req, res) {
-  const reservationId = req.params;
-  const data = await service.read(reservationId);
+  const data = res.locals.reservation;
   res.json({data});
 }
 
@@ -24,7 +23,20 @@ async function create(req, res) {
   res.status(201).json({data: newReservation});
 }
 
-// //middleware functions
+// middleware functions
+
+async function reservationExists (req, res, next) {
+  const { reservation_id } = req.params;
+  const reservation = await service.read(reservation_id);
+  if (reservation) {
+    res.locals.reservation = reservation;
+    return next();
+  }
+  next({
+    status: 404,
+    message: `Reservation ${reservation_id} does not exist. `
+  });
+}
 
 // function hasData(req, res, next) {
 //   const data = req.body.data;
@@ -61,6 +73,6 @@ async function create(req, res) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  read: [asyncErrorBoundary( read)],
+  read: [asyncErrorBoundary(reservationExists), read],
   create: [asyncErrorBoundary(create)],
 };

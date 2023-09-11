@@ -26,12 +26,12 @@ function reservationsService(reservation_date) {
     
 }
 
-function read(reservation_id) {
-    return knex(table)
+function read (reservation_id) {
+    return knex("table")
     .select("*")
-    .where({reservation_id})
+    .where({ reservation_id })
     .first();
-}
+  }
 
 function create(newReservation) {
     return knex(table)
