@@ -6,7 +6,7 @@ async function list(req, res) {
   const { date } = req.query;
   if (date) {
     const data = await service.listReservationsByDate({date});
-    res.status(200).json({data: date});
+    res.status(200).json({data});
   } else {
     const data = await service.list();
     res.status(200).json({data});
@@ -14,7 +14,8 @@ async function list(req, res) {
 };
 
 async function read(req, res) {
-  const data = res.locals.reservation;
+  const reservationId = req.params;
+  const data = await service.read(reservationId);
   res.json({data});
 }
 
@@ -61,6 +62,6 @@ async function create(req, res) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  read: [asyncErrorBoundary, read],
+  read: [asyncErrorBoundary( read)],
   create: [asyncErrorBoundary(create)],
 };
