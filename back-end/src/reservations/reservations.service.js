@@ -1,5 +1,4 @@
 const knex = require ("../db/connection");
-const table = "reservations";
 
 function list(date, mobile_number) {
     if (date) {
@@ -18,7 +17,7 @@ function list(date, mobile_number) {
     }
 
 function reservationsService(reservation_date) {
-    return knex (table)
+    return knex ("reservations")
     .where({reservation_date})
     .whereNot({status: "finished"})
     .andWhereNot({status: "cancelled"})
@@ -27,14 +26,14 @@ function reservationsService(reservation_date) {
 }
 
 function read (reservation_id) {
-    return knex("table")
+    return knex("reservations")
     .select("*")
     .where({ reservation_id })
     .first();
   }
 
 function create(newReservation) {
-    return knex(table)
+    return knex("reservations")
     .insert({
         ...newReservation,
         "status": "booked",
