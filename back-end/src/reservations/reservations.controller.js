@@ -2,13 +2,14 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./reservations.service")
 
 
-async function list(req, res) {
-  const date = req.query.date;
-  const mobile_number = req.query.mobile_number;
-  const data = await (date
-    ? reservationsService.list(date)
-    : reservationsService.search(mobile_number));
-  res.json({ data });
+async function list(request, response) {
+  const date = request.query.date;
+  const mobile_number = request.query.mobile_number;
+  const reservations = await service.list(date, mobile_number);
+  const res = reservations.filter(
+    (reservation) => reservation.status !== "finished"
+  );
+  response.json({ data: res });
 }
 
 async function read(req, res) {
