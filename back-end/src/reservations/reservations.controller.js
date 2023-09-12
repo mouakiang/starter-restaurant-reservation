@@ -50,32 +50,29 @@ function hasData(req, res, next) {
 }
 
 function firstNameExists(req, res, next) {
-  const firstName = req.body.data.first_name;
-  if (firstName) {
+  if (req.body.data.first_name) {
+    return next();
+  }
+  next({ status: 400, message: "first_name is required." });
+}
+
+function lastNameExists(req, res, next) {
+  if (req.body.data.last_name) {
     return next();
   }
   next({
     status: 400,
-    message: "First name is required"
-  })
+    message: "last_name is required."})
 }
 
-// function lastNameExists(req, res, next) {
-//   const lastName = req.body.data.last_name;
-//   if (lastName) {
-//     return next();
-//   }
-//   next({
-//     status: 400,
-//     message: "Last name is required"
-//   })
-// }
+
 
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(reservationExists), read],
   create: [hasData,
   firstNameExists,
+  lastNameExists,
   asyncErrorBoundary(create),
   ],
 };
