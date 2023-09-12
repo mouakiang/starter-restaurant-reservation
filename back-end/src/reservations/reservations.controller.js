@@ -18,9 +18,9 @@ async function read(req, res) {
 }
 
 async function create(req, res) {
-  const newReservation = req.body.data;
-  const data = await service.create(newReservation);
-  res.status(201).json({data: newReservation});
+  const reservation = req.body.data;
+  const data = await service.create(reservation);
+  res.status(201).json({data});
 }
 
 // middleware functions
@@ -38,16 +38,19 @@ async function reservationExists (req, res, next) {
   });
 }
 
-// function hasData(req, res, next) {
-//   const data = req.body.data;
-//   if (data) {
-//     return next();
-//   }
-//   next({
-//     status: 400,
-//     message: "Data is missing"
-//   })
-// }
+async function hasData(req, res, next) {
+  const data = req.body.data;
+  console.log(data);
+  if (data) {
+    const result = await service.create({data});
+    res.status(201).json({result});
+    return next();
+  }
+  next({
+    status: 400,
+    message: "Data is missing"
+  })
+}
 
 // function firstNameExists(req, res, next) {
 //   const firstName = req.body.data.first_name;
@@ -74,5 +77,6 @@ async function reservationExists (req, res, next) {
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(reservationExists), read],
-  create: [asyncErrorBoundary(create)],
+  create: [asyncErrorBoundary(create),
+  hasData],
 };
