@@ -23,6 +23,10 @@ async function create(req, res) {
   res.status(201).json({data});
 }
 
+async function update(req, res, next) {
+
+}
+
 // middleware functions
 
 async function reservationExists (req, res, next) {
@@ -116,6 +120,7 @@ function reservationTimeExists(req, res, next) {
     })
   }
 
+
 function hasValidPeople(req, res, next) {
   const people = req.body.data.people;
   
@@ -128,7 +133,26 @@ function hasValidPeople(req, res, next) {
   })
 }
 
+function checkReservationDate(req, res, next) {
+  const { reservation_date } = req.body.data;
+    const parsedReservationDate = new Date(reservation_date);
 
+  if (parsedReservationDate < new Date()) {
+    return res.status(400).json({ error: 'Reservation date must be in the future' });
+  }
+    next();
+}
+
+function fallsOnTuesday(req, res, next) {
+  const {reservation_date} = req.body.data;
+  if(new Date(reservation_date).getDay() === 2) {
+    next();
+  }
+  next({
+    status: 400, 
+    message: "Restaurant is closed on Tuesdays."
+  })
+}
 
 module.exports = {
   list: asyncErrorBoundary(list),
@@ -142,6 +166,8 @@ module.exports = {
   reservationTimeExists,
   validTime,
   hasValidPeople,
+  checkReservationDate,
+  fallsOnTuesday,
   asyncErrorBoundary(create),
   ],
 };
