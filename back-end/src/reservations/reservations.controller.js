@@ -151,6 +151,18 @@ function fallsOnTuesday(req, res, next) {
   next(); 
 }
 
+function businessHours(req, res, next) {
+  const hours = req.body.data.reservation_time;
+  const restaurantOpen = "10:30";
+  const restaurantClose = "21:30";
+  if (hours >= restaurantOpen && hours <= restaurantClose) {
+    next();
+  }
+  next({
+    status: 400, 
+    message: "Business hours are from 10:30AM to 9:30PM"
+  })
+} 
 
 module.exports = {
   list: asyncErrorBoundary(list),
@@ -166,6 +178,7 @@ module.exports = {
   hasValidPeople,
   checkReservationDate,
   fallsOnTuesday,
+  businessHours,
   asyncErrorBoundary(create),
   ],
 };

@@ -12,6 +12,11 @@ router
   .get(controller.read)
   .all(methodNotAllowed);
 
+router 
+  .route("/new")
+  .post(controller.create)
+  .all(methodNotAllowed);
+  
 router
   .route('/')
   .get(controller.list)
