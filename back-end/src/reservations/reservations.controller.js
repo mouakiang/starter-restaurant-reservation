@@ -94,6 +94,41 @@ function dateIsValid(req, res, next) {
     message: "reservation_date must be valid."})
 }
 
+function reservationTimeExists(req, res, next) {
+  if (req.body.data.reservation_time) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "reservation_time is required."})
+  }
+
+  function validTime(req, res, next) {
+    const regex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/;
+    const time = req.body.data.reservation_time;
+    const valid = time.match(regex);
+    if (valid) {
+      return next();
+    }
+    next({
+      status: 400,
+      message: "reservation_time must be valid time.",
+    })
+  }
+
+function hasValidPeople(req, res, next) {
+  const people = req.body.data.people;
+  
+  if (people > 0 && typeof people === 'number') {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "valid people property required"
+  })
+}
+
+
 
 module.exports = {
   list: asyncErrorBoundary(list),
@@ -104,6 +139,9 @@ module.exports = {
   mobilePhoneExists,
   reservationDateExists,
   dateIsValid,
+  reservationTimeExists,
+  validTime,
+  hasValidPeople,
   asyncErrorBoundary(create),
   ],
 };
