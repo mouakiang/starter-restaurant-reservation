@@ -38,12 +38,9 @@ async function reservationExists (req, res, next) {
   });
 }
 
-async function hasData(req, res, next) {
+function hasData(req, res, next) {
   const data = req.body.data;
-  console.log(data);
   if (data) {
-    const result = await service.create({data});
-    res.status(201).json({result});
     return next();
   }
   next({
@@ -52,16 +49,16 @@ async function hasData(req, res, next) {
   })
 }
 
-// function firstNameExists(req, res, next) {
-//   const firstName = req.body.data.first_name;
-//   if (firstName) {
-//     return next();
-//   }
-//   next({
-//     status: 400,
-//     message: "First name is required"
-//   })
-// }
+function firstNameExists(req, res, next) {
+  const firstName = req.body.data.first_name;
+  if (firstName) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "First name is required"
+  })
+}
 
 // function lastNameExists(req, res, next) {
 //   const lastName = req.body.data.last_name;
@@ -77,6 +74,8 @@ async function hasData(req, res, next) {
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(reservationExists), read],
-  create: [asyncErrorBoundary(create),
-  hasData],
+  create: [hasData,
+  firstNameExists,
+  asyncErrorBoundary(create),
+  ],
 };
