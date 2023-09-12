@@ -65,6 +65,34 @@ function lastNameExists(req, res, next) {
     message: "last_name is required."})
 }
 
+function mobilePhoneExists(req, res, next) {
+  if (req.body.data.mobile_number) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "mobile_number is required."})
+}
+
+function reservationDateExists(req, res, next) {
+  if (req.body.data.reservation_date) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "reservation_date is required."})
+}
+
+function dateIsValid(req, res, next) {
+  const date = req.body.data.reservation_date;
+  const valid = Date.parse(date);
+  if (valid) {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "reservation_date must be valid."})
+}
 
 
 module.exports = {
@@ -73,6 +101,9 @@ module.exports = {
   create: [hasData,
   firstNameExists,
   lastNameExists,
+  mobilePhoneExists,
+  reservationDateExists,
+  dateIsValid,
   asyncErrorBoundary(create),
   ],
 };
