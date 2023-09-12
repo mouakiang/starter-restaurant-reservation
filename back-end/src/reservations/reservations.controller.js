@@ -23,9 +23,6 @@ async function create(req, res) {
   res.status(201).json({data});
 }
 
-async function update(req, res, next) {
-
-}
 
 // middleware functions
 
@@ -144,15 +141,16 @@ function checkReservationDate(req, res, next) {
 }
 
 function fallsOnTuesday(req, res, next) {
-  const {reservation_date} = req.body.data;
-  if(new Date(reservation_date).getDay() === 2) {
-    next();
+  const { reservation_date } = req.body.data;
+  if (new Date(reservation_date).getUTCDay() === 2) {
+    return next({
+      status: 400, 
+      message: "Restaurant is closed on Tuesdays."
+    });
   }
-  next({
-    status: 400, 
-    message: "Restaurant is closed on Tuesdays."
-  })
+  next(); 
 }
+
 
 module.exports = {
   list: asyncErrorBoundary(list),
