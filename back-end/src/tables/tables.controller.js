@@ -12,9 +12,21 @@ async function list(req, res){
     res.json({result});
 }
 
+//middleware functions
 
+function hasData(req, res, next) {
+    const data = req.body.data;
+    if (data) {
+        return next();
+    }
+    next({
+        status: 400, 
+        message: "Data property is required."
+    })
+}
 
 module.exports = {
     list: asyncErrorBoundary(list),
-    create: [asyncErrorBoundary(create)],
+    create: [hasData,
+        asyncErrorBoundary(create)],
 }
