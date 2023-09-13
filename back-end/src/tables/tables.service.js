@@ -1,10 +1,9 @@
 const knex = require ("../db/connection");
 
-function list(table_name) {
+function list() {
     return knex("tables")
-    .select()
-    .orderBy(table_name)
-    .first();
+    .select("*")
+    .orderBy("table_name");
 }
 
 module.exports = {
