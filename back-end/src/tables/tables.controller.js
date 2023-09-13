@@ -34,11 +34,21 @@ function tableNameExists(req, res, next) {
       message: "table_name is required."})
   }
 
+  function tableNameIsOneChar(req, res, next) {
+    const tableName = req.body.data.table_name;
+    if (tableName.length >= 2 ) {
+        return next();
+    }
+    next({
+        status:400, 
+        message: "table_name must be longer than 2 characters."})
+  }
 
 
 module.exports = {
     list: asyncErrorBoundary(list),
     create: [hasData,
     tableNameExists,
+    tableNameIsOneChar,
     asyncErrorBoundary(create)],
 }
