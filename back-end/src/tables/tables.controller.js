@@ -41,14 +41,23 @@ function tableNameExists(req, res, next) {
     }
     next({
         status:400, 
-        message: "table_name must be longer than 2 characters."})
+        message: "table_name must be longer than 2 character."})
   }
 
+  function capacityExists(req, res, next) {
+    if (req.body.data.capacity) {
+      return next();
+    }
+    next({
+      status: 400,
+      message: "capacity is required."})
+  }
 
 module.exports = {
     list: asyncErrorBoundary(list),
     create: [hasData,
     tableNameExists,
     tableNameIsOneChar,
+    capacityExists,
     asyncErrorBoundary(create)],
 }
