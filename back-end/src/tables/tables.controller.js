@@ -25,8 +25,20 @@ function hasData(req, res, next) {
     })
 }
 
+function tableNameExists(req, res, next) {
+    if (req.body.data.table_name) {
+      return next();
+    }
+    next({
+      status: 400,
+      message: "table_name is required."})
+  }
+
+
+
 module.exports = {
     list: asyncErrorBoundary(list),
     create: [hasData,
-        asyncErrorBoundary(create)],
+    tableNameExists,
+    asyncErrorBoundary(create)],
 }
