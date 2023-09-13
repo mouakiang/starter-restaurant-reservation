@@ -1,5 +1,16 @@
 const knex = require ("../db/connection");
 
+function create(newTable) {
+    return knex("tables")
+    .insert({
+        ...newTable,
+        "table_status": newTable.reservation_id ? "occupied" : 
+        "free",
+    })
+    .returning("*")
+    .then((result) => result[0]);
+}
+
 function list() {
     return knex("tables")
     .select("*")
@@ -8,4 +19,5 @@ function list() {
 
 module.exports = {
     list,
+    create,
 }
