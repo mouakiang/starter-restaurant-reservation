@@ -53,11 +53,24 @@ function tableNameExists(req, res, next) {
       message: "capacity is required."})
   }
 
+  function capacityIsNumber (req, res, next) {
+    const { capacity } = req.body.data;
+    if (Number.isInteger(capacity)) {
+      return next();
+    } else {
+      return next({
+        status: 400,
+        message: `capacity field is not formatted correctly. ${capacity} must be a number`
+      });
+    }
+  }
+
 module.exports = {
     list: asyncErrorBoundary(list),
     create: [hasData,
     tableNameExists,
     tableNameIsOneChar,
     capacityExists,
+    capacityIsNumber,
     asyncErrorBoundary(create)],
 }
