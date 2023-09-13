@@ -80,5 +80,7 @@ module.exports = {
     capacityExists,
     capacityIsNumber,
     asyncErrorBoundary(create)],
-    update: [asyncErrorBoundary(update)],
+    update: [
+    hasData,
+    asyncErrorBoundary(update)],
 }
