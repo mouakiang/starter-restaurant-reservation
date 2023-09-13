@@ -12,7 +12,11 @@ async function create(req, res) {
     res.status(201).json({data});
   }
 
-
+async function update(req, res) {
+    const {reservation, table} = res.locals;
+    const data = await service.update(reservation.reservation_id, table.table_id);
+    res.json({data})
+}
 
 //middleware functions
 
@@ -67,6 +71,7 @@ function tableNameExists(req, res, next) {
     }
   }
 
+
 module.exports = {
     list: asyncErrorBoundary(list),
     create: [hasData,
@@ -75,4 +80,5 @@ module.exports = {
     capacityExists,
     capacityIsNumber,
     asyncErrorBoundary(create)],
+    update: [asyncErrorBoundary(update)],
 }

@@ -17,9 +17,26 @@ function create(newTable) {
     .then((result) => result[0]);
 }
 
+async function update(reservation_id, table_id) {
+    const transaction = await knex.transaction();
+    return transaction("tables")
+        .where({table_id})
+        .update({
+            reservation_id: reservation_id,
+            table_status: "occupied",
+        }, "*")
+        .then(() =>
+            transaction("reservations")
+            .where({reservation_id})
+            .update({status: "seated"})
+        )
+        .then(transaction.commit)
+        .catch(transaction.rollback);
+}
 
 
 module.exports = {
     list,
     create,
+    update,
 }
