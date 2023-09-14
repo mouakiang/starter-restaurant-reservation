@@ -1,6 +1,7 @@
 const { table } = require("../db/connection");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./tables.service")
+const reservationService = require("../reservations/reservations.service");
 
 async function list(req, res) {
     const tables = await service.list();
@@ -73,14 +74,14 @@ function tableNameExists(req, res, next) {
   }
   async function reservationExists (req, res, next) {
     const { reservation_id } = req.body.data;
-    const reservation = await service.read(reservation_id);
+    const reservation = await reservationService.read(reservation_id);
     if (reservation) {
       res.locals.reservation = reservation;
       return next();
     }
     return next({
       status: 404,
-      message: `reservation not found.`
+      message: `reservation_id ${reservation_id} not found.`
     });
   }
 
@@ -109,25 +110,18 @@ function tableNameExists(req, res, next) {
     })
   }
 
-  async function validateSeat(request, response, next) {
-    if (response.locals.table_status === "occupied") {
+  async function validateSeat(req, res, next) {
+    if (res.locals.table.table_status === "occupied") {
       return next({
         status: 400,
         message: "the table you selected is currently occupied",
       });
     }
   
-    if (response.locals.reservation.status === "seated") {
+    if (res.locals.table.capacity < res.locals.reservation.people) {
       return next({
         status: 400,
-        message: "the reservation you selected is already seated",
-      });
-    }
-  
-    if (response.locals.table.capacity < response.locals.reservation.people) {
-      return next({
-        status: 400,
-        message: `the table you selected does not have enough capacity to seat ${response.locals.reservation.people} people`,
+        message: `the table you selected does not have enough capacity to seat ${res.locals.reservation.people} people`,
       });
     }
   
@@ -143,10 +137,11 @@ module.exports = {
     capacityIsNumber,
     asyncErrorBoundary(create)],
     update: [
+    asyncErrorBoundary(tableExists),
     hasData,
     reservationIdExists,
     asyncErrorBoundary(reservationExists),
-    asyncErrorBoundary(tableExists),
     asyncErrorBoundary(validateSeat),
-    asyncErrorBoundary(update)],
+    asyncErrorBoundary(update),
+  ],
 }
