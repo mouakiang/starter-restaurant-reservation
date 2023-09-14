@@ -1,3 +1,4 @@
+const { table } = require("../db/connection");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./tables.service")
 
@@ -79,8 +80,33 @@ function tableNameExists(req, res, next) {
     }
     return next({
       status: 404,
-      message: `reservation_id ${reservation_id} not found.`
+      message: `reservation not found.`
     });
+  }
+
+  function reservationIdExists(req, res, next) {
+    const reservation = req.body.data.reservation_id;
+    if (reservation) {
+      return next();
+    }
+    next({
+      status: 400,
+      message: "reservation_id required",
+    })
+  }
+  
+
+  async function tableExists(req, res, next) {
+    const table_id = req.params.table_id;
+    const table = await service.read(table_id);
+    if (table) {
+      res.locals.table = table;
+      return next();
+    }
+    next({
+      status: 404,
+      message: `table_id ${table_id} does not exist`,
+    })
   }
 
   async function validateSeat(request, response, next) {
@@ -118,7 +144,9 @@ module.exports = {
     asyncErrorBoundary(create)],
     update: [
     hasData,
+    reservationIdExists,
     asyncErrorBoundary(reservationExists),
+    asyncErrorBoundary(tableExists),
     asyncErrorBoundary(validateSeat),
     asyncErrorBoundary(update)],
 }
