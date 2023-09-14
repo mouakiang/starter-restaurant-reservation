@@ -83,9 +83,30 @@ function tableNameExists(req, res, next) {
     });
   }
 
+  async function validateSeat(request, response, next) {
+    if (response.locals.table_status === "occupied") {
+      return next({
+        status: 400,
+        message: "the table you selected is currently occupied",
+      });
+    }
   
-
-
+    if (response.locals.reservation.status === "seated") {
+      return next({
+        status: 400,
+        message: "the reservation you selected is already seated",
+      });
+    }
+  
+    if (response.locals.table.capacity < response.locals.reservation.people) {
+      return next({
+        status: 400,
+        message: `the table you selected does not have enough capacity to seat ${response.locals.reservation.people} people`,
+      });
+    }
+  
+    next();
+  }
 
 module.exports = {
     list: asyncErrorBoundary(list),
@@ -98,5 +119,6 @@ module.exports = {
     update: [
     hasData,
     asyncErrorBoundary(reservationExists),
+    asyncErrorBoundary(validateSeat),
     asyncErrorBoundary(update)],
 }
