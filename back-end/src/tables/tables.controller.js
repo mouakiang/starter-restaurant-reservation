@@ -70,18 +70,20 @@ function tableNameExists(req, res, next) {
       });
     }
   }
-
- async function reservationExists(req, res, next) {
-  const reservation = await service.read(req.body.data.reservation_id);
-  if (reservation) {
-    res.locals.reservation = reservation;
-    return next();
+  async function reservationExists (req, res, next) {
+    const { reservation_id } = req.body.data;
+    const reservation = await service.read(reservation_id);
+    if (reservation) {
+      res.locals.reservation = reservation;
+      return next();
+    }
+    return next({
+      status: 404,
+      message: `reservation_id ${reservation_id} not found.`
+    });
   }
-  next({
-    status: 404,
-    message: `reservation_id ${req.body.data.reservation_id} does not exist`,
-  })
-}
+
+  
 
 
 
