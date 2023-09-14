@@ -111,6 +111,7 @@ function tableNameExists(req, res, next) {
   }
 
   async function validateSeat(req, res, next) {
+    console.log("-----table_status------", res.locals.table.table_status);
     if (res.locals.table.table_status === "occupied") {
       return next({
         status: 400,
