@@ -198,6 +198,6 @@ module.exports = {
     checkReservationDate,
     fallsOnTuesday,
     businessHours,
-    asyncErrorBoundary(update),
+    asyncErrorBoundary(update)
   ]
 };

@@ -19,7 +19,7 @@ router
   .all(methodNotAllowed);
   
 router
-  .route('/')
+  .route("/")
   .get(controller.list)
   .post(controller.create)
   .all(methodNotAllowed);
