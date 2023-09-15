@@ -156,16 +156,19 @@ function fallsOnTuesday(req, res, next) {
 }
 
 function businessHours(req, res, next) {
-  const hours = req.body.data.reservation_time;
-  const restaurantOpen = "10:30";
-  const restaurantClose = "21:30";
-  if (hours >= restaurantOpen && hours <= restaurantClose) {
-    next();
+  const time = req.body.data.reservation_time;
+  const hours = parseInt(time.substring(0, 2));
+  const min = parseInt(time.substring(3));
+
+  if ((hours === 10 && min >= 30) || hours > 10) {
+    if ((hours === 21 && min <= 30) ||hours < 21) {
+      return next();
+    }
   }
-  next({
-    status: 400, 
-    message: "Business hours are from 10:30AM to 9:30PM"
-  })
+  return next({
+    status: 400,
+    message: `Business hours are from 10:30AM to 9:30PM`,
+  });
 } 
 
 module.exports = {
