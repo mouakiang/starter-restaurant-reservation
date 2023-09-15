@@ -32,9 +32,27 @@ function read(table_id) {
         .first();
 }
 
+async function destroy(table_id, reservation_id) {
+  const trx = await knex.transaction();
+  return trx("tables")
+    .where({ table_id })
+    .update({
+      reservation_id: null,
+      table_status: "free",
+    }, "*")
+    .then(() => 
+      trx("reservations")
+      .where({ reservation_id })
+      .update({ status: "finished" }, "*")
+    )
+    .then(trx.commit)
+    .catch(trx.rollback)
+}
+
 module.exports = {
     list,
     create,
     update,
     read,
+    destroy
 }

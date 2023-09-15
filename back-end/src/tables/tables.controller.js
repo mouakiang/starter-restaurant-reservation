@@ -20,6 +20,13 @@ async function update(req, res) {
     res.json({data})
 }
 
+async function destroy(req, res) {
+  const table = res.locals.table;
+  await service.destroy(table.table_id, table.reservation_id);
+  const data = await service.list();
+  res.json({data});
+}
+
 //middleware functions
 
 function hasData(req, res, next) {
@@ -128,6 +135,17 @@ function tableNameExists(req, res, next) {
     next();
   }
 
+  function tableNotOpen(req, res, next) {
+    const table = res.locals.table;
+    if (table.table_status === 'occupied') {
+      return next();
+    }
+    next({
+      status: 400,
+      message: "table_id is not occupied",
+    })
+  }
+
 module.exports = {
     list: asyncErrorBoundary(list),
     create: [
@@ -145,4 +163,8 @@ module.exports = {
     asyncErrorBoundary(validateSeat),
     asyncErrorBoundary(update),
   ],
+  destroy: [
+    asyncErrorBoundary(tableExists),
+    tableNotOpen,
+    asyncErrorBoundary(destroy)],
 }
