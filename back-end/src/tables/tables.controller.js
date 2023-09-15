@@ -130,7 +130,7 @@ function tableNameExists(req, res, next) {
 
 module.exports = {
     list: asyncErrorBoundary(list),
-    create: [tableNameExists,
+    create: [
     hasData,
     tableNameExists,
     tableNameIsOneChar,
