@@ -8,11 +8,7 @@ function list() {
 
 function create(newTable) {
     return knex("tables")
-    .insert({
-        ...newTable,
-        "table_status": newTable.reservation_id ? "occupied" : 
-        "free",
-    })
+    .insert(newTable)
     .returning("*")
     .then((result) => result[0]);
 }

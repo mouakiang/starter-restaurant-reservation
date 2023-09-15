@@ -23,6 +23,11 @@ async function create(req, res) {
   res.status(201).json({data});
 }
 
+async function update(req, res){
+  const updatedReservation = req.body.data;
+  const result = await service.updateReservation(updatedReservation);
+  res.json(201).json({result});
+}
 
 // middleware functions
 
@@ -180,4 +185,19 @@ module.exports = {
   businessHours,
   asyncErrorBoundary(create),
   ],
+  update: [
+    hasData,
+    firstNameExists,
+    lastNameExists,
+    mobilePhoneExists,
+    reservationDateExists,
+    dateIsValid,
+    reservationTimeExists,
+    validTime,
+    hasValidPeople,
+    checkReservationDate,
+    fallsOnTuesday,
+    businessHours,
+    asyncErrorBoundary(update),
+  ]
 };

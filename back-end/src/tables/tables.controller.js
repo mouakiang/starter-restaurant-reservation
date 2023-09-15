@@ -110,12 +110,13 @@ function tableNameExists(req, res, next) {
   }
 
   async function validateSeat(req, res, next) {
-    if (res.locals.table.table_status === "occupied") {
+    if (res.locals.table.reservation_id) {
       return next({
-        status: 400,
-        message: "the table you selected is currently occupied",
+          status: 400,
+          message:
+              "This table is already occupied. Please choose a different table.",
       });
-    }
+  }
   
     if (res.locals.table.capacity < res.locals.reservation.people) {
       return next({
