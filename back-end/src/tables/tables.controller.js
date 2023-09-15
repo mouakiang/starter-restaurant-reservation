@@ -23,15 +23,14 @@ async function update(req, res) {
 //middleware functions
 
 function hasData(req, res, next) {
-    const data = req.body.data;
-    if (data) {
-        return next();
+    if (req.body.data) {
+      return next();
     }
     next({
-        status: 400, 
-        message: "Data property is required."
+      status: 400,
+      message: "Body must have a data property.",
     })
-}
+  }
 
 function tableNameExists(req, res, next) {
     if (req.body.data.table_name) {
@@ -111,7 +110,6 @@ function tableNameExists(req, res, next) {
   }
 
   async function validateSeat(req, res, next) {
-    console.log("-----table_status------", res.locals.table.table_status);
     if (res.locals.table.table_status === "occupied") {
       return next({
         status: 400,
@@ -131,7 +129,8 @@ function tableNameExists(req, res, next) {
 
 module.exports = {
     list: asyncErrorBoundary(list),
-    create: [hasData,
+    create: [tableNameExists,
+    hasData,
     tableNameExists,
     tableNameIsOneChar,
     capacityExists,

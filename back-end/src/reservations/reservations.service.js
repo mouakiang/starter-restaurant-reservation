@@ -36,7 +36,6 @@ function create(newReservation) {
     return knex("reservations")
     .insert({
         ...newReservation,
-        "status": "booked",
     })
     .returning("*")
     .then((result) => result[0]);

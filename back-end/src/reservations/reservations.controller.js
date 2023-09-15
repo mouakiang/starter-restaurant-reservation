@@ -40,13 +40,12 @@ async function reservationExists (req, res, next) {
 }
 
 function hasData(req, res, next) {
-  const data = req.body.data;
-  if (data) {
+  if (req.body.data) {
     return next();
   }
   next({
     status: 400,
-    message: "Data is missing"
+    message: "Body must have a data property.",
   })
 }
 
