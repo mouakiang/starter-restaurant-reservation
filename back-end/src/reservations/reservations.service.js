@@ -49,10 +49,17 @@ function updateReservation(updatedReservation){
         .then((updatedRecords) => updatedRecords[0])
 }
 
+function status(reservation_id, status){
+    return knex("reservations")
+        .where({reservation_id})
+        .update({status: status}, "*")
+
+}
 module.exports = {
     list,
     reservationsService,
     read,
     create,
     updateReservation,
+    status,
 };

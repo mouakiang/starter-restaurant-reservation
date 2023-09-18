@@ -29,6 +29,14 @@ async function update(req, res){
   res.json(201).json({result});
 }
 
+async function updateStatus(req, res) {
+  const status = req.body.data.status;
+  console.log(status);
+  const reservation = res.locals.reservation.reservation_id;
+  const result = await service.status(reservation.reservation_id, status);
+  res.status(200).json({data: {status: result[0].status}})
+}
+
 // middleware functions
 
 async function reservationExists (req, res, next) {
@@ -171,6 +179,29 @@ function businessHours(req, res, next) {
   });
 } 
 
+function updateValidStatus(req, res, next) {
+  const status = req.body.data.status;
+  if (status !== 'unknown') {
+    return next();
+  }
+  next({
+    status: 400,
+    message: "status cannot be unknown.",
+  })
+}
+
+function notFinished(req, res, next) {
+  const reservation = res.locals.reservation;
+  if (reservation.status === 'finished') {
+    next({
+      status: 400,
+      message: "reservation cannot already be finished.",
+    })  
+  } else {
+    return next();
+  }
+}
+
 module.exports = {
   list: asyncErrorBoundary(list),
   read: [asyncErrorBoundary(reservationExists), read],
@@ -202,5 +233,11 @@ module.exports = {
     fallsOnTuesday,
     businessHours,
     asyncErrorBoundary(update)
+  ],
+  updateStatus: [
+    asyncErrorBoundary(reservationExists),
+    updateValidStatus,
+    notFinished,
+    asyncErrorBoundary(updateStatus),
   ]
 };
