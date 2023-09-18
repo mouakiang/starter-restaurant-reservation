@@ -31,10 +31,9 @@ async function update(req, res){
 
 async function updateStatus(req, res) {
   const status = req.body.data.status;
-  console.log(status);
-  const reservation = res.locals.reservation_id;
-  const result = await service.status(reservation_id, status);
-  res.status(200).json({data: {status: result[0].status}})
+  const reservation = res.locals.reservation;
+  const result = await service.status(reservation, status);
+  res.status(200).json({data: {status: result[0-3].status}})
 }
 
 // middleware functions
@@ -209,7 +208,7 @@ function validStatus(req, res, next) {
   }
   next({
     status: 400,
-    message: "status cannot be seated, finished.",
+    message: `status ${status} is not valid.`,
   })
 }
 
@@ -250,6 +249,7 @@ module.exports = {
     asyncErrorBoundary(reservationExists),
     updateValidStatus,
     notFinished,
+    validStatus,
     asyncErrorBoundary(updateStatus),
   ]
 };
