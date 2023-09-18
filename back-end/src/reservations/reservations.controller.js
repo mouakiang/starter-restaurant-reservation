@@ -33,7 +33,7 @@ async function updateStatus(req, res) {
   const status = req.body.data.status;
   const reservation = res.locals.reservation;
   const result = await service.status(reservation, status);
-  res.status(200).json({data: {status: result[0-3].status}})
+  res.status(200).json({data: {status: result[0].status}})
 }
 
 // middleware functions
@@ -178,28 +178,24 @@ function businessHours(req, res, next) {
   });
 } 
 
-function updateValidStatus(req, res, next) {
-  const status = req.body.data.status;
-  if (status !== 'unknown') {
-    return next();
+function checkStatus(req, res, next) {
+  const { data: { status } = {} } = req.body;
+  const reservationStatus = res.locals.reservation.status;
+  if (status === 'unknown') {
+    return next({
+      status: 400,
+      message: `Invalid status: ${status}`,
+    });
   }
-  next({
-    status: 400,
-    message: "status cannot be unknown.",
-  })
+  if (reservationStatus === 'finished') {
+    return next({
+      status: 400,
+      message: `Invalid status: ${reservationStatus}`,
+    });
+  }
+  next();
 }
 
-function notFinished(req, res, next) {
-  const reservation = res.locals.reservation;
-  if (reservation.status === 'finished') {
-    next({
-      status: 400,
-      message: "reservation cannot already be finished.",
-    })  
-  } else {
-    return next();
-  }
-}
 
 function validStatus(req, res, next) {
   const status = req.body.data.status;
@@ -247,9 +243,7 @@ module.exports = {
   ],
   updateStatus: [
     asyncErrorBoundary(reservationExists),
-    updateValidStatus,
-    notFinished,
-    validStatus,
+    checkStatus,
     asyncErrorBoundary(updateStatus),
   ]
 };
