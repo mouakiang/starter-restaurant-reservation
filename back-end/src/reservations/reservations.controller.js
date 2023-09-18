@@ -31,9 +31,9 @@ async function update(req, res){
 
 async function updateStatus(req, res) {
   const status = req.body.data.status;
-  const reservation = res.locals.reservation;
-  const result = await service.status(reservation, status);
-  res.status(200).json({data: {status: result[0].status}})
+  const { reservation_id } = res.locals.reservation;
+  const result = await service.status(reservation_id, status);
+  res.json({ data: result });
 }
 
 // middleware functions
