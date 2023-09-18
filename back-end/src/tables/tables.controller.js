@@ -1,4 +1,3 @@
-const { table } = require("../db/connection");
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./tables.service")
 const reservationService = require("../reservations/reservations.service");
@@ -17,7 +16,7 @@ async function create(req, res) {
 async function update(req, res) {
     const {reservation, table} = res.locals;
     const data = await service.update(reservation.reservation_id, table.table_id);
-    res.json({data})
+    res.status(200).json({data})
 }
 
 async function destroy(req, res) {
@@ -116,7 +115,7 @@ function tableNameExists(req, res, next) {
     })
   }
 
-  async function validateSeat(req, res, next) {
+  async function tableCapacity(req, res, next) {
     if (res.locals.table.reservation_id) {
       return next({
           status: 400,
@@ -146,6 +145,15 @@ function tableNameExists(req, res, next) {
     })
   }
 
+  async function checkReservationStatus(req, res, next) {
+    const { reservation } = res.locals;
+    if (reservation.status === 'seated') {
+      return res.status(400).json({ error: "Reservation is already seated" });
+    }
+      next();
+  }
+  
+
 
 module.exports = {
     list: asyncErrorBoundary(list),
@@ -161,7 +169,8 @@ module.exports = {
     hasData,
     reservationIdExists,
     asyncErrorBoundary(reservationExists),
-    asyncErrorBoundary(validateSeat),
+    asyncErrorBoundary(tableCapacity),
+    asyncErrorBoundary(checkReservationStatus),
     asyncErrorBoundary(update),
   ],
   destroy: [
