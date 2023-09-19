@@ -210,7 +210,7 @@ function validStatus(req, res, next) {
 
 module.exports = {
   list: asyncErrorBoundary(list),
-  read: [asyncErrorBoundary(reservationExists), read],
+  read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
   create: [hasData,
   firstNameExists,
   lastNameExists,
@@ -227,6 +227,7 @@ module.exports = {
   asyncErrorBoundary(create),
   ],
   update: [
+    asyncErrorBoundary(reservationExists),
     hasData,
     firstNameExists,
     lastNameExists,

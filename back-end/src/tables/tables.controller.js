@@ -77,7 +77,7 @@ function tableNameExists(req, res, next) {
       });
     }
   }
-  async function reservationExists (req, res, next) {
+  async function reservationExists(req, res, next) {
     const { reservation_id } = req.body.data;
     const reservation = await reservationService.read(reservation_id);
     if (reservation) {
@@ -86,9 +86,10 @@ function tableNameExists(req, res, next) {
     }
     return next({
       status: 404,
-      message: `reservation_id ${reservation_id} not found.`
+      message: `Reservation with ID ${reservation_id} not found.`,
     });
   }
+  
 
   function reservationIdExists(req, res, next) {
     const reservation = req.body.data.reservation_id;
