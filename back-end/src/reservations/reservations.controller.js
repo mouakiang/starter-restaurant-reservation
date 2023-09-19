@@ -23,14 +23,15 @@ async function create(req, res) {
   res.status(201).json({data});
 }
 
-async function update(req, res){
-    const updatedRes = {
-      ...req.body.data,
-      reservation_id: res.locals.reservation.reservation_id,
-    }
+async function update(req, res) {
+  const updatedRes = {
+    ...req.body.data,
+    reservation_id: res.locals.reservation.reservation_id,
+  };
   const result = await service.updateReservation(updatedRes);
-  res.json(200).json({result});
-  }
+  res.status(200).json({ data: result });
+}
+
   
 
 async function updateStatus(req, res) {
