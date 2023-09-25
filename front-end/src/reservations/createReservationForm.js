@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-import { createReservation } from "../../utils/api";
-import ErrorAlert from "../ErrorAlert";
+import { createReservation } from "../utils/api";
+import ErrorAlert from "../layout/ErrorAlert";
 
 function CreateNewReservationForm({date}) {
 //declare state
@@ -11,7 +11,7 @@ const [reservation, setReservation] = useState({
     first_name: "",
     last_name: "",
     mobile_number: "",
-    reservation_date: "",
+    reservation_date: date,
     reservation_time: "",
     people: "1",
 });
@@ -136,7 +136,7 @@ return (
     <button type="submit" className="btn btn-primary"> Submit Reservation </button>
     </form>
     </>
-)
+);
 }
 
 export default CreateNewReservationForm;
