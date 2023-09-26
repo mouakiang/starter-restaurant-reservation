@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { createReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 
@@ -24,9 +24,8 @@ const handleChange = ({target}) => {
     });
 }
 
-//declare handle submit 
-function handleSubmit(e) {
-  e.preventDefault();
+//validate form
+const validateForm = () => {
 
   const reservationDate = new Date(reservation.reservation_date);
   const currentDate = new Date();
@@ -53,6 +52,15 @@ function handleSubmit(e) {
 
   if (reservationTime > 21.5) {
     setError("The reservation time cannot be after 9:30 PM.");
+    return;
+  }
+}
+
+//declare handle submit 
+function handleSubmit(e) {
+  e.preventDefault();
+
+  if (!validateForm()) {
     return;
   }
 

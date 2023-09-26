@@ -58,7 +58,7 @@ export async function createReservation(reservation, signal) {
     body: JSON.stringify({data: reservation}),
     signal,
   }
-  return await fetchJson(url, options);
+  return fetchJson(url, options);
 }
 /**
  * Retrieves all existing reservation.
