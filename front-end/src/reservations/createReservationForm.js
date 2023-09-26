@@ -31,7 +31,7 @@ function handleSubmit(e) {
   const reservationDate = new Date(reservation.reservation_date);
   const currentDate = new Date();
 
-  if (reservationDate.getDay() === 2) {
+  if (reservationDate.getUTCDay() === 2) {
     setError("The restaurant is closed on Tuesdays.");
     return;
   }
