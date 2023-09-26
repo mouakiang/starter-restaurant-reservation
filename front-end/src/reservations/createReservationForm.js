@@ -24,9 +24,7 @@ const handleChange = ({target}) => {
     });
 }
 
-//validate form
 const validateForm = () => {
-
   const reservationDate = new Date(reservation.reservation_date);
   const currentDate = new Date();
 
@@ -60,9 +58,7 @@ const validateForm = () => {
 function handleSubmit(e) {
   e.preventDefault();
 
-  if (!validateForm()) {
-    return;
-  }
+  validateForm();
 
   createReservation({
     ...reservation,
