@@ -31,13 +31,28 @@ function handleSubmit(e) {
   const reservationDate = new Date(reservation.reservation_date);
   const currentDate = new Date();
 
+  // Extract the reservation time
+  const reservationTime = reservationDate.getUTCHours() + reservationDate.getUTCMinutes() / 60;
+
   if (reservationDate.getUTCDay() === 2) {
     setError("The restaurant is closed on Tuesdays.");
     return;
   }
 
-  if (reservationDate < currentDate) {
-    setError("Reservation date must be in the future.");
+  if (reservationDate < currentDate || 
+    (reservationDate.getTime() === currentDate.getTime() && reservationTime 
+    <= currentDate.getUTCHours() + currentDate.getUTCMinutes() / 60)) {
+    setError("Reservation date and time must be in the future.");
+    return;
+  }
+
+  if (reservationTime < 10.5) {
+    setError("The reservation time cannot be before 10:30 AM.");
+    return;
+  }
+
+  if (reservationTime > 21.5) {
+    setError("The reservation time cannot be after 9:30 PM.");
     return;
   }
 
@@ -52,6 +67,7 @@ function handleSubmit(e) {
       setError(error.message);
     });
 }
+
 
 //return json
 return (
