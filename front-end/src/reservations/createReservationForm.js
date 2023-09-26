@@ -25,16 +25,32 @@ const handleChange = ({target}) => {
 }
 
 //declare handle submit 
-function handleSubmit (e) {
-    e.preventDefault();
-    createReservation({
-        ...reservation,
-        people: Number(reservation.people),
-    })
+function handleSubmit(e) {
+  e.preventDefault();
+
+  const reservationDate = new Date(reservation.reservation_date);
+  const currentDate = new Date();
+
+  if (reservationDate.getDay() === 2) {
+    setError("The restaurant is closed on Tuesdays.");
+    return;
+  }
+
+  if (reservationDate < currentDate) {
+    setError("Reservation date must be in the future.");
+    return;
+  }
+
+  createReservation({
+    ...reservation,
+    people: parseInt(reservation.people), 
+  })
     .then(() => {
       history.push(`/dashboard?date=${reservation.reservation_date}`);
     })
-    .catch(setError);
+    .catch((error) => {
+      setError(error.message);
+    });
 }
 
 //return json
