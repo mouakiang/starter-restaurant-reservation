@@ -13,7 +13,7 @@ const [reservation, setReservation] = useState({
     mobile_number: "",
     reservation_date: date,
     reservation_time: "",
-    people: "1",
+    people: 1,
 });
 
 //declare change handler
