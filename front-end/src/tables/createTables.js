@@ -18,20 +18,16 @@ function CreateTables() {
     });
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-  
-    const tableWithNumberCapacity = {
-      ...table,
-      capacity: parseFloat(table.capacity),
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const abortController = new AbortController();
 
-    createTable(tableWithNumberCapacity)
-      .then(() => {
-        history.push(`/dashboard`);
-      })
+    createTable(table, abortController.signal)
+      .then(() => history.push(`/dashboard`))
       .catch(setError);
-  }
+
+    return () => abortController.abort();
+  };
 
   return (
     <>
@@ -62,7 +58,7 @@ function CreateTables() {
               className="form-control"
               id="capacity"
               name="capacity"
-              type="text" // Keep it as text
+              type="number"
               onChange={handleChange}
               required={true}
               value={table.capacity}

@@ -69,7 +69,7 @@ export async function createTable(table, signal) {
     body: JSON.stringify({ data: table }),
     signal,
   };
-  return await fetchJson(url, options, table);
+  return await fetchJson(url, options);
 }
 /**
  * Retrieves all existing reservation.
