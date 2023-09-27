@@ -8,19 +8,25 @@ function CreateTables() {
   const [error, setError] = useState(null);
   const [table, setTable] = useState({
     table_name: "",
-    capacity: "", 
+    capacity: 1, 
   });
 
   const handleChange = ({ target }) => {
-    setTable({
-      ...table,
-      [target.name]: target.value,
-    });
+    if (target.name === "capacity") {
+        setTable({ ...table, [target.name]: Number(target.value) });
+      } else {
+        setTable({
+            ...table,
+            [target.name]: target.value,
+          });  
+      }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const abortController = new AbortController();
+
+    console.log(typeof table.capacity);
 
     createTable(table, abortController.signal)
       .then(() => history.push(`/dashboard`))
