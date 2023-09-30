@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
+import ReservationList from "../reservations/reservationList";
 
 /**
  * Defines the dashboard page.
@@ -30,7 +31,26 @@ function Dashboard({ date }) {
         <h4 className="mb-0">Reservations for date</h4>
       </div>
       <ErrorAlert error={reservationsError} />
-      {JSON.stringify(reservations)}
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Reservation ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>People</th>
+            <th>Mobile Number</th>
+            <th>Reservation Date</th>
+            <th>Reservation Time</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reservations.map((reservation) => (
+            <ReservationList key={reservation.reservation_id} res={reservation} />
+          ))}
+        </tbody>
+      </table>
     </main>
   );
 }
