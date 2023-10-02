@@ -3,9 +3,10 @@ import { useHistory } from "react-router-dom";
 import { updateReservationStatus, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 
-function ListDashboardReservations({ res }) {
+function ReservationList({ res }) {
   const [error, setError] = useState(null);
   const history = useHistory();
+  
 
   const handleCancelReservation = async () => {
     setError(null);
@@ -60,4 +61,4 @@ function ListDashboardReservations({ res }) {
   );
 }
 
-export default ListDashboardReservations;
+export default ReservationList;
