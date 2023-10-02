@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { listReservations } from "../utils/api";
+import { listReservations, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import ReservationList from "../reservations/ReservationList";
+import TableList from "../tables/TableList";
 
 /**
  * Defines the dashboard page.
@@ -12,17 +13,32 @@ import ReservationList from "../reservations/ReservationList";
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
+  const [tables, setTables] = useState([]);
+  const [tablesError, setTablesError] = useState(null);
 
   useEffect(loadDashboard, [date]);
 
   function loadDashboard() {
     const abortController = new AbortController();
     setReservationsError(null);
-    listReservations({ date }, abortController.signal)
-      .then(setReservations)
-      .catch(setReservationsError);
+    setTablesError(null);
+  
+    Promise.all([
+      listReservations({ date }, abortController.signal),
+      listTables(),
+    ])
+      .then(([reservationData, tableData]) => {
+        setReservations(reservationData);
+        setTables(tableData);
+      })
+      .catch((error) => {
+        setReservationsError(error);
+        setTablesError(error);
+      });
+  
     return () => abortController.abort();
   }
+  
 
   return (
     <main>
@@ -51,6 +67,25 @@ function Dashboard({ date }) {
           ))}
         </tbody>
       </table>
+      <div className="mt-4">
+    <h4>Tables</h4>
+    <ErrorAlert error={tablesError} />
+    <table className="table">
+      <thead>
+        <tr>
+          <th>Table ID</th>
+          <th>Table Name</th>
+          <th>Capacity</th>
+          <th>Occupancy</th>
+        </tr>
+      </thead>
+      <tbody>
+        {tables.map((table) => (
+          <TableList key={table.table_id} table={table} />
+        ))}
+      </tbody>
+    </table>
+  </div>
     </main>
   );
 }

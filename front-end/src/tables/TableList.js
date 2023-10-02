@@ -3,7 +3,7 @@ import { deleteTableReservation, listTables, updateReservationStatus } from "../
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
 
-function ListTables({table}) {
+function TableList({table}) {
     const [currentTable, setCurrentTable] = useState(table);
     const [error, setError] = useState(null);
     const history = useHistory();
@@ -68,4 +68,4 @@ function ListTables({table}) {
         
 }
 
-export default ListTables;
+export default TableList;
