@@ -92,3 +92,24 @@ export async function listTables(signal) {
   return await fetchJson(url, { headers, signal }, [])
 }
 
+export async function deleteTableReservation(table_id, signal) {
+  const url = `${API_BASE_URL}/tables/{table_id}/seat`;
+  const options = {
+    method: "DELETE",
+    headers, 
+    body: JSON.stringify({data: {table_id}}),
+    signal,
+  };
+  return await fetchJson(url, options);
+}
+
+export async function updateReservationStatus(data, reservation_id, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservation_id}/status`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({data}),
+    signal,
+  };
+  return await fetchJson(url, options);
+}

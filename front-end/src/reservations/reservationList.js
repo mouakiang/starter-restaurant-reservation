@@ -17,7 +17,7 @@ return (
     <>
     <ErrorAlert error={error} />
     <tr>
-        <th scope="row"> {reservation.reservation_id}</th>
+        <th scope="row">{reservation.reservation_id}</th>
         <td>{reservation.first_name}</td>
         <td>{reservation.last_name}</td>
         <td>{reservation.people}</td>

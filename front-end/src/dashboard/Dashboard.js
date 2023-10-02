@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
-import ReservationList from "../reservations/reservationList";
+import ReservationList from "../reservations/ReservationList";
 
 /**
  * Defines the dashboard page.
