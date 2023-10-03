@@ -4,7 +4,7 @@ import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
 import Dashboard from "../dashboard/Dashboard";
 import NotFound from "./NotFound";
 import { today } from "../utils/date-time";
-import CreateNewReservationForm from "../reservations/createReservationForm";
+import ReservationCreate from "../reservations/ReservationCreate";
 import useQuery from "../utils/useQuery";
 import CreateTables from "../tables/createTables";
 import ReservationSeat from "../reservations/ReservationSeat";
@@ -43,7 +43,7 @@ function Routes() {
         <Dashboard date={date} />
       </Route>
       <Route path="/reservations/new">
-        <CreateNewReservationForm date={date}/>
+        <ReservationCreate date={date}/>
       </Route>
       <Route path="/tables/new">
         <CreateTables/>

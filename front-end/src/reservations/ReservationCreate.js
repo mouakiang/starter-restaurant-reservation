@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { createReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 
-function CreateNewReservationForm({date}) {
+function ReservationCreate({date}) {
 //declare state
 const history = useHistory();
 const [error, setError] = useState(null);
@@ -73,7 +73,6 @@ function handleSubmit(e) {
 }
 
 
-//return json
 return (
     <>
     <h1> Create A Reservation </h1>
@@ -175,7 +174,4 @@ return (
 );
 }
 
-export default CreateNewReservationForm;
-
-
-
+export default ReservationCreate;

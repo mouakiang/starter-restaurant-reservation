@@ -3,7 +3,7 @@ import { listReservations, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import ReservationList from "../reservations/ReservationList";
 import TableList from "../tables/TableList";
-import ReservationSeat from "../reservations/ReservationSeat";
+
 
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
@@ -84,11 +84,6 @@ function Dashboard({ date }) {
       </tbody>
     </table>
     </div>
-  <div>
-  {reservations.map((reservation) => (
-    <ReservationSeat key={reservation.reservation_id} reservation_id={reservation.reservation_id} />
-  ))}
-  </div>
     </main>
   );
 }

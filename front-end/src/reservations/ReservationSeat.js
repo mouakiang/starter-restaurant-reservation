@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { listTables, seatReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 function ReservationSeat() {
   const history = useHistory();
@@ -43,7 +42,7 @@ function ReservationSeat() {
     }
   };
 
-  if (tables.length > 0) {
+  if (tables) {
     return (
       <>
         <div className="mb-3">

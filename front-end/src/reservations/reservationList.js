@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { updateReservationStatus, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
+import {listTables, updateReservationStatus} from "../utils/api"
 
-function ReservationList({ res }) {
+
+function ReservationList({res}) {
   const [error, setError] = useState(null);
   const history = useHistory();
-  
+
 
   const handleCancelReservation = async () => {
     setError(null);

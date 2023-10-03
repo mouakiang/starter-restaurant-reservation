@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { deleteTableReservation, listTables, seatReservation, updateReservationStatus } from "../utils/api";
+import { deleteTableReservation, listTables, updateReservationStatus } from "../utils/api";
 import { useHistory } from "react-router-dom";
 import ErrorAlert from "../layout/ErrorAlert";
 
@@ -26,7 +26,7 @@ function TableList({table}) {
       event.preventDefault();
       setError(null);
       if (window.confirm("Is this table ready to seat new guests? This cannot be undone.")) {
-        await seatReservation({ status: "finished"}, currentTable.reservation_id, abortController.signal);
+        await updateReservationStatus({ status: "finished"}, currentTable.reservation_id, abortController.signal);
         const newTable = await reloadTableData();
         console.log(newTable);
         history.push("/tables");
