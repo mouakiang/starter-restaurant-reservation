@@ -90,16 +90,16 @@ export async function readReservation(reservation_id, signal){
 
 //Updates a single reservation
 
-export async function updateReservation(updatedReservation, signal){
+export async function updateReservation(update, signal){
   const url = new URL(
-    `${API_BASE_URL}/reservations/${updatedReservation.reservation_id}`
+    `${API_BASE_URL}/reservations/${update.reservation_id}`
   );
   const options = {
     method: "PUT",
     headers,
-    body: JSON.stringify({data: updatedReservation}),
+    body: JSON.stringify({data: update}),
   };
-  return await fetchJson(url, options, updatedReservation)
+  return await fetchJson(url, options, update, signal)
     .then(formatReservationDate)
     .then(formatReservationTime);
 }
