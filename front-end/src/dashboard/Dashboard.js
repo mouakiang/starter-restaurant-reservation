@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {useHistory, useRouteMatch} from "react-router-dom";
+import {useHistory, useParams} from "react-router-dom";
 
 
 //import utility functions
 import { listReservations, listTables, finishTable } from "../utils/api";
-import  useQuery  from "../utils/useQuery";
 import { today, previous, next } from "../utils/date-time";
 
 //import components
@@ -16,8 +15,7 @@ import TablesList from "../tables/TablesList";
 function Dashboard({ date }) {
 
   const history = useHistory();
-  const query = useQuery();
-  const route = useRouteMatch();
+  const params = useParams();
   
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
@@ -25,35 +23,20 @@ function Dashboard({ date }) {
   const [tablesError, setTablesError] = useState(null);
   const [tables, setTables] = useState([]);
 
-  useEffect(loadDashboard, [currentDate]);
+  useEffect(() => {
+    const date = params.reservationDate || today();
+    loadDashboard(date);
+  }, [params]);
 
-  //load reservations for current date and all tables
-
-  function loadDashboard() {
+  function loadDashboard(date) {
     const abortController = new AbortController();
     setReservationsError(null);
-    listReservations({ date: currentDate }, abortController.signal)
+    listReservations({ reservation_date: date }, abortController.signal)
       .then(setReservations)
       .catch(setReservationsError);
-    listTables(abortController.signal).then(setTables).catch(setTablesError);
+    listTables(abortController.signal).then(setTables).catch(setReservationsError);
     return () => abortController.abort();
   }
-
-//update date 
-  useEffect(() =>{
-
-    function getDate(){
-      const getQueryDate = query.get("date");
-
-      if(getQueryDate){
-        setCurrentDate(getQueryDate)
-      }else{
-        setCurrentDate(today())
-      }
-    }
-    getDate();
-    
-  }, [query, route])
 
 //handler for table's finish button
 
