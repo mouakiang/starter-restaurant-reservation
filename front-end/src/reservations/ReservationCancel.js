@@ -34,8 +34,10 @@ return (
     <ErrorAlert error={error} />
     <button
       className="btn btn-secondary"
+      type="button"
       data-reservation-id-cancel={reservation_id}
-      onClick={clickHandler}
+      value={reservation_id}
+      onClick={event => clickHandler(event, reservation_id)}
     >
       Cancel
     </button>
