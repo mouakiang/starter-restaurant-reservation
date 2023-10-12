@@ -46,7 +46,7 @@ const ReservationForm = ({reservation, submitHandler, changeHandler, cancelHandl
           </label>
           <input
             className="form-control"
-            type="tel"
+            type="number"
             id="mobile_number"
             name="mobile_number"
             required={true}
