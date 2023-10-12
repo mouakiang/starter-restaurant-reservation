@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import ErrorAlert from "../layout/ErrorAlert";
 import { cancelReservation } from "../utils/api.js";
+import { useHistory } from "react-router-dom";
 
 const ReservationCancel = ({reservation_id}) => {
   const [error, setError] = useState(null);
+  const history = useHistory();
 
   const clickHandler = async(event) =>{
     
@@ -16,7 +18,7 @@ const ReservationCancel = ({reservation_id}) => {
       if(confirmation){
           try{
              await cancelReservation(reservation_id, abortController.signal)
-             window.location.reload();
+             history.push("/dashboard");
           }
           catch(error){
                if (error.name !== "AbortError") {
@@ -24,7 +26,6 @@ const ReservationCancel = ({reservation_id}) => {
                }  
           }
       }
-      console.log(confirmation);
       return () => abortController.abort();
   }
 
