@@ -124,9 +124,13 @@ export async function createTable(table, signal){
 
 //Retrieves all tables
 
-export async function listTables (signal) {
-  const url = `${API_BASE_URL}/tables`;
-  return await fetchJson(url, { headers, signal }, []);
+export async function listTables(signal){
+  const url = new URL(`${API_BASE_URL}/tables`);
+  const options={
+    headers,
+    signal,
+  };
+  return await fetchJson(url, options);
 }
 
 //Assigns a reservation_id to a table
