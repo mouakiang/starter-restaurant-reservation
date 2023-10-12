@@ -24,6 +24,7 @@ function Dashboard({ date }) {
   const [tables, setTables] = useState([]);
 
   useEffect(() => {
+    
     const date = params.reservationDate || today();
     loadDashboard(date);
   }, [params]);
