@@ -17,7 +17,6 @@
 ### ✨ [Demo](https://restaurant-reservation-front-end-njh9.onrender.com)
 
 
-
 ## Install
 
 ```sh
