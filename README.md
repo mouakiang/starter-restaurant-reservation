@@ -13,7 +13,7 @@
 
  <p align="center">Starter project restaurant reservation system</p align="center">
 
-### ✨ [Demo](https://restaurant-reservation-front-end-njh9.onrender.com)
+<center>### ✨ [Demo](https://restaurant-reservation-front-end-njh9.onrender.com)</center>
 
 ## Web Application
 
