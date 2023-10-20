@@ -17,11 +17,11 @@
 
  <h4>Technology</h4>
 
- Front-End: HTML, CSS, JavaScript, React, jQuery and Bootstrap.
+ <u>Front-End:</u> HTML, CSS, JavaScript, React, jQuery and Bootstrap.
  <br>
- Back-End: Node.js, Express, RESTful APIs, PostgreSQL.
+ <u>Back-End:</u> Node.js, Express, RESTful APIs, PostgreSQL.
  <br>
- Tools: Mocha, Chai, Knex, Git, Github, Render, NPM, VS Code.
+ <u>Tools:</u> Mocha, Chai, Knex, Git, Github, Render, NPM, VS Code.
 
 
 ## Web Application
