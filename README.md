@@ -11,18 +11,19 @@
   </a>
 </p align="center">
 
+### ✨ [Live Demo](https://restaurant-reservation-front-end-njh9.onrender.com)
+
  <p align="center"><h3>Starter Project Restaurant Reservation System</h3>
  Allows users and Restaurant to make, seat, search, edit and cancel reservations. Create tables for specific reservation parties to be seated at.</p align="center">
 
  <p align="center">
  <h3>Technology</h3>
  Front-End: HTML, CSS, JavaScript, React, jQuery and Bootstrap.
+ <br>
  Back-End: Node.js, Express, RESTful APIs, PostgreSQL.
+ <br>
  Tools: Mocha, Chai, Knex, Git, Github, Render, NPM, VS Code.
  </p align="center>
-
-
-## ✨ [Live Demo](https://restaurant-reservation-front-end-njh9.onrender.com)
 
 ## Web Application
 
