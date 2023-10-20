@@ -17,7 +17,7 @@
 
 ## Web Application
 
-<p align="center"><img width="800" alt="Screenshot 2023-10-20 at 12 26 35 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/be6804bb-e0c9-40e9-b455-d7c408a321ea"> 
+<p align="center">
 <img width="800" alt="Screenshot 2023-10-20 at 12 27 53 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/8e05ba71-b321-4f1c-9f0c-0bd9aa1a84f3"> 
 <img width="800" alt="Screenshot 2023-10-20 at 12 40 57 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/cc3b464d-6954-4648-b10e-85d7a5008b4e"> 
 <img width="800" alt="Screenshot 2023-10-20 at 12 43 09 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/46892103-263e-41b8-ba6f-5e9260f305b4">
