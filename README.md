@@ -13,12 +13,12 @@
 
 ### ✨ [Live Demo](https://restaurant-reservation-front-end-njh9.onrender.com)
 
- <h4 align="center">Starter Project Restaurant Reservation System</h4 align="center">
+ <h4>Starter Project Restaurant Reservation System</h4>
  
  Allows users and Restaurant to make, seat, search, edit and cancel reservations. Create tables for specific reservation parties to be seated at.
 
 
- <h4 align="center">Technology</h4 align="center">
+ <h4>Technology</h4>
 
  Front-End: HTML, CSS, JavaScript, React, jQuery and Bootstrap.
  <br>
