@@ -11,9 +11,9 @@
   </a>
 </p align="center">
 
- <p align="center">Starter project restaurant reservation system</p align="center">
+ <p align="center">Starter Project Restaurant Reservation System</p align="center">
 
-### ✨ [Demo](https://restaurant-reservation-front-end-njh9.onrender.com)
+### ✨ [Live Demo](https://restaurant-reservation-front-end-njh9.onrender.com)
 
 ## Web Application
 
