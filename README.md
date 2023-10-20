@@ -1,5 +1,5 @@
 <h1 align="center">Welcome to starter-restaurant-reservation 👋</h1>
-<p>
+<p align="center">
 <a href="https://github.com/Thinkful-Ed/starter-restaurant-reservation#readme" target="_blank">
     <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
   </a>
@@ -9,7 +9,7 @@
   <a href="https://github.com/Thinkful-Ed/starter-restaurant-reservation/blob/master/LICENSE" target="_blank">
     <img alt="License: UNLICENSED" src="https://img.shields.io/github/license/mouakiang/starter-restaurant-reservation" />
   </a>
-</p>
+</p align="center">
 
  <p align="center">Starter project restaurant reservation system</p align="center">
 
