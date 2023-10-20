@@ -62,5 +62,5 @@ Give a ⭐️ if this project helped you!
 ## 📝 License
 
 Copyright © 2023 [Thinkful, Inc.](https://github.com/mouakiang).<br />
-This project is [UNLICENSED](https://github.com/Thinkful-Ed/starter-restaurant-reservation/blob/master/LICENSE) licensed.
+
 
