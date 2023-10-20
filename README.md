@@ -53,7 +53,7 @@ npm run test
 👤 **Thinkful, Inc.**
 
 * Github: [@mouakiang](https://github.com/mouakiang)
-* LinkedIn: [@https:\/\/www.linkedin.com\/in\/kiangmoua\/](https:\/\/www.linkedin.com\/kiangmoua\/)
+* LinkedIn: [@https:\/\/www.linkedin.com\/in\/kiangmoua\/](https:\/\/www.linkedin.com\/in\/kiangmoua\/)
 
 ## Show your support
 
