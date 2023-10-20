@@ -22,9 +22,9 @@
 <img width="900" alt="Screenshot 2023-10-20 at 12 41 50 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/0f101cb5-1698-471c-8f28-2ce7d4715aeb">
 <img width="900" alt="Screenshot 2023-10-20 at 12 43 09 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/46892103-263e-41b8-ba6f-5e9260f305b4">
 
-<img width="250" alt="Screenshot 2023-10-20 at 12 44 22 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/e89c5ede-0125-4e30-8329-d03d9a4baf1b">
-<img width="250" alt="Screenshot 2023-10-20 at 12 44 53 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/a03543fb-4b69-4234-9152-af9bcf7ed4c9">
-<img width="250" alt="Screenshot 2023-10-20 at 12 45 38 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/92957ecf-cb62-44bb-8f7d-1cae513f0749">
+<img width="275" alt="Screenshot 2023-10-20 at 12 44 22 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/e89c5ede-0125-4e30-8329-d03d9a4baf1b">
+<img width="275" alt="Screenshot 2023-10-20 at 12 44 53 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/a03543fb-4b69-4234-9152-af9bcf7ed4c9">
+<img width="275" alt="Screenshot 2023-10-20 at 12 45 38 PM" src="https://github.com/mouakiang/starter-restaurant-reservation/assets/116847348/92957ecf-cb62-44bb-8f7d-1cae513f0749">
 
 
 
