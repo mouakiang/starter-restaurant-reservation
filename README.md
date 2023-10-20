@@ -6,9 +6,6 @@
   <a href="https://github.com/Thinkful-Ed/starter-restaurant-reservation/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
-  <a href="https://github.com/Thinkful-Ed/starter-restaurant-reservation/blob/master/LICENSE" target="_blank">
-    <img alt="License: UNLICENSED" src="https://img.shields.io/github/license/mouakiang/starter-restaurant-reservation" />
-  </a>
 </p align="center">
 
 ### ✨ [Live Demo](https://restaurant-reservation-front-end-njh9.onrender.com)
